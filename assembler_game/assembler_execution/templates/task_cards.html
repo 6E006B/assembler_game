@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if task %}
+    <form method="POST">{% csrf_token %}
+    {% if error %}
+        <div class="alert alert-danger alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Woopsie!</strong> We caught this error for you: {{error}}.
+        </div>
+    {% endif %}
+    {% if solved %}
+        <div class="alert alert-success alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Well done!</strong> You successfully solved this task.
+        </div>
+    {% else %}
+        {% if code and not solved is None %}
+        <div class="alert alert-warning alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Sorry!</strong> Your solution is unfortunately not yet correct.
+        </div>
+        {% endif %}
+    {% endif %}
+        <div class="card-group">
+        <!--<div class="row">-->
+            <!--<div class="col">-->
+                <div class="card">
+                    <button type="submit" class="btn btn-primary">CHECK</button>
+                    <div class="card-block">
+                        <h3 class="card-title">{{ task.title }}</h3>
+                        <div class="card-text">{{task.description}}</div>
+                        {% if task.hint %}
+                    </div>
+                    <div class="card-block">
+                        <div class="card-text">
+                            <button type="button" class="btn btn-info" data-target="#hint" data-toggle="collapse">
+                                <i class="fa fa-info" aria-hidden="true"></i>&nbsp;Hint
+                            </button>
+                            <div id="hint" class="collapse">
+                                {{task.hint}}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-primary">CHECK</button>
+                </div>
+            <!--</div>-->
+            <!--TODO: add if statement to show only if necessary-->
+            <!--<div class="col">-->
+                <div class="card">
+                    <div class="card-block">
+                        <h5 class="card-title">Assembler code</h5>
+                    </div>
+                    {% if task.code_prefix %}
+                    <div class="card-block">
+                        <h5 class="card-title">Code executed before</h5>
+                        <div class="card-text">
+                            <pre><code>{{task.code_prefix}}</code></pre>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="card-block">
+                        <textarea id="code-textarea" class="form-control tt" name="code" placeholder="your asm code" rows="1">{{code}}</textarea>
+                    </div>
+                    {% if task.code_postfix %}
+                    <div class="card-block">
+                        <h5 class="card-title">Code executed after</h5>
+                        <div class="card-text">
+                            <pre><code>{{task.code_postfix}}</code></pre>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            <!--</div>-->
+
+            <!--<div class="col">-->
+                <div class="card">
+                    <div class="card-block">
+                        <h5 class="card-title">Test Cases</h5>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Initial registers</th>
+                                    <th>Expected registers</th>
+                                    {% if register_values_list %}<th>Actual registers</th>{% endif %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for registers_row in registers_list %}
+                                <tr class="{% if registers_row.2 %}{% if registers_row.1 == registers_row.2 %}table-success{% else %}table-danger{% endif %}{% endif %}">
+                                {% for registers_dict in registers_row %}
+                                    {% if registers_dict %}
+                                    <td class="tt">
+                                    {% for register, value in registers_dict.items %}
+                                        {{register}}: {{value|stringformat:"#010x"}}
+                                    {% endfor %}
+                                    </td>
+                                    {% endif %}
+                                {% endfor %}
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            <!--</div>-->
+
+        </div>
+    </form>
+    {% else %}
+    <p>No task</p>
+{% endif %}
+
+<script src="http://www.jacklmoore.com/js/autosize.min.js"></script>
+<script>
+autosize(document.getElementById('code-textarea'));
+</script>
+
+{% endblock %}

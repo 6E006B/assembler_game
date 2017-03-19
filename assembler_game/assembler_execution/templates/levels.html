@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ stage.name }} - Levels{% endblock %}
+
+{% block content %}
+<h2>{{ stage.name }}</h2>
+
+<div class="card-group">
+    {% for level in levels %}
+    <a href="{% url 'task' id=level.id %}" class="card{% if level in solved_levels %} solved{% endif %}">
+        <div class="card-block">
+        <h4 class="card-title">{{ level.title }}</h4>
+        <p class="card-text">{{ level.description }}</p>
+      </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

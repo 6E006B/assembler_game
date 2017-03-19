@@ -1,0 +1,6 @@
+capstone==3.0.4
+Django==1.10.6
+django-extensions==1.7.7
+jsonfield==2.0.1
+keystone-engine==0.9.1.post3
+unicorn==1.0.0
