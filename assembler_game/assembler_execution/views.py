@@ -87,9 +87,19 @@ class TaskView(LoginRequiredBaseView):
             assert len(actual_registers_list) == len(task.initial_register_list)
         registers_list = []
         for i in range(len(task.initial_register_list)):
+            register_names = set(task.initial_register_list[i].keys() + task.expected_register_list[i].keys())
+            initial_registers = {}
+            expected_registers = {}
+            actual_registers = None if not actual_registers_list else {}
+            for register_name in register_names:
+                initial_registers[register_name] = task.initial_register_list[i].get(register_name)
+                expected_registers[register_name] = task.expected_register_list[i].get(register_name)
+                if actual_registers is not None:
+                    actual_registers[register_name] = actual_registers_list[i].get(register_name)
             registers_list.append([
-                task.initial_register_list[i],
-                task.expected_register_list[i],
-                None if not actual_registers_list else actual_registers_list[i]
+                register_names,
+                initial_registers,
+                expected_registers,
+                actual_registers
             ])
         return registers_list
