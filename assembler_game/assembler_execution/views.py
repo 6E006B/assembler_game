@@ -82,6 +82,20 @@ class TaskView(LoginRequiredBaseView):
         return render(request, 'task_cards.html', context)
 
     def get_registers_list(self, task, actual_registers_list=None):
+        """
+        Get the correct format to render the registers in the template.
+        :param task: the task for which to create the list for
+        :param actual_registers_list: actual register values as calculated by unicorn if available
+        :return: data structure in the following format:
+                    List[ represents test cases
+                        List[ represents the columns for a single test case
+                            List[ register_names ],
+                            Dict{initial_registers },
+                            Dict{expected_registers },
+                            Dict{ actual_registers } : iff actual_registers_list otherwise None
+                        ]
+                    ]
+        """
         assert len(task.initial_register_list) == len(task.expected_register_list)
         if actual_registers_list:
             assert len(actual_registers_list) == len(task.initial_register_list)
