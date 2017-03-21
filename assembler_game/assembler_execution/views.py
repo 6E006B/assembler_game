@@ -107,7 +107,7 @@ class TaskView(LoginRequiredBaseView):
         for i in range(len(task.initial_register_list)):
             success = True
             register_names = self.get_register_names(task.stage.registers, task.initial_register_list[i], task.expected_register_list[i])
-            initial_registers = task.stage.registers
+            initial_registers = task.stage.registers.copy()
             expected_registers = {}
             actual_registers = None if not actual_registers_list else {}
             for register_name in register_names:
