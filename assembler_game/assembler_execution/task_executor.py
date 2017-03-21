@@ -30,7 +30,7 @@ class TaskExecutor(object):
         return self.actual_registers
 
     def get_relevant_registers(self, initial_registers, expected_registers):
-        relevant_registers_list = set(expected_registers.keys())
+        relevant_registers_list = set(initial_registers.keys() + expected_registers.keys())
         relevant_registers = {}
         for register in relevant_registers_list:
             relevant_registers[register] = self.cpu.get_register(register)
