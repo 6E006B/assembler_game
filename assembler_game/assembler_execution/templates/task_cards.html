@@ -100,6 +100,9 @@
                                     <td class="tt">
                                     {% for register in test_case.register_names %}
                                         {{register}}
+                                        {% if not forloop.last %}
+                                        <br>
+                                        {% endif %}
                                     {% endfor %}
                                     </td>
                                 {% for registers_dict in test_case.registers %}
@@ -109,6 +112,9 @@
                                             {{value|stringformat:"#010x"}}
                                         {% else %}
                                             -
+                                        {% endif %}
+                                        {% if not forloop.last %}
+                                        <br>
                                         {% endif %}
                                     {% endfor %}
                                     </td>
