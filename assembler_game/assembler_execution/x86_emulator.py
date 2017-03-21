@@ -71,7 +71,7 @@ class X86Emulator(object):
         self.cpu.reg_write(self.REGISTERS[register], value)
 
     def get_registers(self):
-        registers_names = ['eax', 'ebx', 'ecx', 'edx', 'esp', 'eip', 'ebp']
+        registers_names = ['eax', 'ebx', 'ecx', 'edx', 'esp', 'eip', 'ebp', 'eflags']
         registers = {}
         for register in registers_names:
             registers[register] = self.get_register(register)
