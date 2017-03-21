@@ -95,26 +95,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            {% for registers_row in registers_list %}
-                                <tr class="{% if registers_row.3 %}{% if registers_row.2 == registers_row.3 %}table-success{% else %}table-danger{% endif %}{% endif %}">
-                                {% for registers_dict in registers_row %}
-                                    {% if registers_dict is not None %}
+                            {% for test_case in test_case_list %}
+                                <tr class="{% if test_case.actual_registers_available %}{% if test_case.success %}table-success{% else %}table-danger{% endif %}{% endif %}">
                                     <td class="tt">
-                                        {% if forloop.counter == 1 %}
-                                            {% for register in registers_dict %}
-                                                {{register}}
-                                            {% endfor %}
-                                        {% else %}
-                                            {% for value in registers_dict.values %}
-                                                {% if value is not None %}
-                                                    {{value|stringformat:"#010x"}}
-                                                {% else %}
-                                                    -
-                                                {% endif %}
-                                            {% endfor %}
-                                        {% endif %}
+                                    {% for register in test_case.register_names %}
+                                        {{register}}
+                                    {% endfor %}
                                     </td>
-                                    {% endif %}
+                                {% for registers_dict in test_case.registers %}
+                                    <td class="tt">
+                                    {% for name, value in registers_dict.items %}
+                                        {% if value is not None %}
+                                            {{value|stringformat:"#010x"}}
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    {% endfor %}
+                                    </td>
                                 {% endfor %}
                                 </tr>
                             {% endfor %}
