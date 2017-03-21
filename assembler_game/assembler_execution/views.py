@@ -106,8 +106,8 @@ class TaskView(LoginRequiredBaseView):
         test_case_list = []
         for i in range(len(task.initial_register_list)):
             success = True
-            register_names = set(task.initial_register_list[i].keys() + task.expected_register_list[i].keys())
-            initial_registers = {}
+            register_names = self.get_register_names(task.stage.registers, task.initial_register_list[i], task.expected_register_list[i])
+            initial_registers = task.stage.registers
             expected_registers = {}
             actual_registers = None if not actual_registers_list else {}
             for register_name in register_names:
@@ -130,3 +130,11 @@ class TaskView(LoginRequiredBaseView):
             }
             test_case_list.append(test_case)
         return test_case_list
+
+    def get_register_names(self, stage_registers, initial_registers, expected_registers):
+        # first get the ones of the stage to preserve the initial order
+        register_names = stage_registers.keys()
+        for register in initial_registers.keys() + expected_registers.keys():
+            if register not in register_names:
+                register_names.append(register)
+        return register_names
