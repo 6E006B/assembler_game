@@ -111,7 +111,7 @@ class TaskView(LoginRequiredBaseView):
             expected_registers = {}
             actual_registers = None if not actual_registers_list else {}
             for register_name in register_names:
-                initial_registers[register_name] = task.initial_register_list[i].get(register_name)
+                initial_registers[register_name] = task.initial_register_list[i].get(register_name, initial_registers.get(register_name))
                 expected_registers[register_name] = task.expected_register_list[i].get(register_name)
                 if actual_registers is not None:
                     actual_registers[register_name] = actual_registers_list[i].get(register_name)
