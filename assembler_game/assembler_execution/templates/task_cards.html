@@ -31,9 +31,9 @@
         </div>
         {% endif %}
     {% endif %}
-        <div class="card-group">
-        <!--<div class="row">-->
-            <!--<div class="col">-->
+        <!--<div class="card-group">-->
+        <div class="row">
+            <div class="col">
                 <div class="card">
                     <button type="submit" class="btn btn-primary">CHECK</button>
                     <div class="card-block">
@@ -54,10 +54,11 @@
                     </div>
                     <button type="submit" class="btn btn-primary">CHECK</button>
                 </div>
-            <!--</div>-->
+            </div>
             <!--TODO: add if statement to show only if necessary-->
-            <!--<div class="col">-->
+            <div class="col">
                 <div class="card">
+                    <button type="submit" class="btn btn-primary">CHECK</button>
                     <div class="card-block">
                         <h5 class="card-title">Assembler code</h5>
                     </div>
@@ -69,9 +70,9 @@
                         </div>
                     </div>
                     {% endif %}
-                    <div class="card-block">
+                    <!--<div class="card-block">-->
                         <textarea id="code-textarea" class="form-control tt" name="code" placeholder="your asm code" rows="1">{{code}}</textarea>
-                    </div>
+                    <!--</div>-->
                     {% if task.code_postfix %}
                     <div class="card-block">
                         <h5 class="card-title">Code executed after</h5>
@@ -80,10 +81,11 @@
                         </div>
                     </div>
                     {% endif %}
+                    <button type="submit" class="btn btn-primary">CHECK</button>
                 </div>
-            <!--</div>-->
+            </div>
 
-            <!--<div class="col">-->
+            <div class="col">
                 <div class="card">
                     <div class="card-block">
                         <h5 class="card-title">Test Cases</h5>
@@ -123,7 +125,7 @@
                         </table>
                     </div>
                 </div>
-            <!--</div>-->
+            </div>
 
         </div>
     </form>
