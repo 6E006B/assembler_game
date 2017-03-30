@@ -117,7 +117,9 @@
                                     <td class="tt">
                                             {% if registers_dict|get_item:register is not None %}
                                                 {% if register == "eflags" %}
-                                                    {{registers_dict|get_item:register|translate_eflags}}
+                                        <span class="eflags" data-toggle="tooltip" data-placement="top" title=" {{registers_dict|get_item:register|translate_eflags}}">
+                                            {{registers_dict|get_item:register|stringformat:"#010x"}}
+                                        </span>
                                                 {% else %}
                                                     {{registers_dict|get_item:register|stringformat:"#010x"}}
                                                 {% endif%}
@@ -170,5 +172,7 @@ autosize(document.getElementById('code-textarea'));
         border-bottom: solid 2px lightgray;
         border-radius-bottom: 0.25rem;
     }
-
+    .eflags {
+        border: solid 1px lightgray;
+    }
 {% endblock %}
