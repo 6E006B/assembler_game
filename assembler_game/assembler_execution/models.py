@@ -11,7 +11,7 @@ class Stage(models.Model):
     name = models.CharField(max_length=64, unique=True)
     difficulty = models.PositiveSmallIntegerField()
     registers = JSONField(
-        default="{}",
+        default={},
         blank=True,
         load_kwargs={'object_pairs_hook': OrderedDict}
     )
