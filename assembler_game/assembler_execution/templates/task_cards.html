@@ -106,17 +106,19 @@
                                         {{register}}
                                     </td>
                                     {% for registers_dict in test_case.registers %}
+                                        {% if registers_dict is not None %}
                                     <td class="tt">
-                                        {% if registers_dict|get_item:register is not None %}
-                                            {% if register == "eflags" %}
-                                                {{registers_dict|get_item:register|translate_eflags}}
+                                            {% if registers_dict|get_item:register is not None %}
+                                                {% if register == "eflags" %}
+                                                    {{registers_dict|get_item:register|translate_eflags}}
+                                                {% else %}
+                                                    {{registers_dict|get_item:register|stringformat:"#010x"}}
+                                                {% endif%}
                                             {% else %}
-                                                {{registers_dict|get_item:register|stringformat:"#010x"}}
-                                            {% endif%}
-                                        {% else %}
-                                            -
-                                        {% endif %}
+                                                -
+                                            {% endif %}
                                         </td>
+                                        {% endif %}
                                     {% endfor %}
                                 </tr>
                                 {% endfor %}
