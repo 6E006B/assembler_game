@@ -27,7 +27,7 @@ class StagesView(LoginRequiredBaseView):
             stages_list.append({
                 'stage': stage,
                 'tasks_number': stage.tasks.count(),
-                'tasks_solved_number': TaskSolution.objects.filter(user=request.user).filter(task__in=stage.tasks.all()).count(),
+                'tasks_solved_number': TaskSolution.objects.filter(user=request.user, task__in=stage.tasks.all()).count(),
             })
         return render(request, 'stages.html', {'stages': stages_list})
 
