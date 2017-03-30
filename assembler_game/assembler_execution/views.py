@@ -22,7 +22,14 @@ class StagesView(LoginRequiredBaseView):
 
     def render_stages(self, request):
         all_stages = Stage.objects.all().order_by('difficulty')
-        return render(request, 'stages.html', {'stages': all_stages})
+        stages_list = []
+        for stage in all_stages:
+            stages_list.append({
+                'stage': stage,
+                'tasks_number': stage.tasks.count(),
+                'tasks_solved_number': TaskSolution.objects.filter(user=request.user).filter(task__in=stage.tasks.all()).count(),
+            })
+        return render(request, 'stages.html', {'stages': stages_list})
 
 
 class StageView(LoginRequiredBaseView):

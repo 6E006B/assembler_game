@@ -4,11 +4,11 @@
 
 {% block content %}
 <div class="card-group">
-    {% for stage in stages %}
-    <a href="{% url 'stage' name=stage.name %}" class="card">
+    {% for stage_dict in stages %}
+    <a href="{% url 'stage' name=stage_dict.stage.name %}" class="card">
         <div class="card-block">
-        <h4 class="card-title">{{ stage.name }}</h4>
-        <p class="card-text">Difficulty: {{ stage.difficulty }}</p>
+        <h4 class="card-title">{{ stage_dict.stage.name }} ({{ stage_dict.tasks_solved_number }} / {{ stage_dict.tasks_number }})</h4>
+        <p class="card-text">Difficulty: {{ stage_dict.stage.difficulty }}</p>
       </div>
     </a>
     {% endfor %}
