@@ -98,30 +98,26 @@
                             </thead>
                             <tbody>
                             {% for test_case in test_case_list %}
-                                <tr class="{% if test_case.actual_registers_available %}{% if test_case.success %}table-success{% else %}table-danger{% endif %}{% endif %}">
+                                {% for register in test_case.register_names %}
+                                <tr class="test-case-row{% if test_case.actual_registers_available %}{% if test_case.success %} table-success{% else %} table-danger{% endif %}{% endif %}{% if forloop.first %} first-test-case-row{% endif %}{% if forloop.last %} last-test-case-row{% endif %}">
                                     <td class="tt">
-                                    {% for register in test_case.register_names %}
                                         {{register}}
-                                        {% if not forloop.last %}
-                                        <br>
-                                        {% endif %}
-                                    {% endfor %}
                                     </td>
-                                {% for registers_dict in test_case.registers %}
+                                    {% for registers_dict in test_case.registers %}
                                     <td class="tt">
-                                    {% for name, value in registers_dict.items %}
-                                        {% if value is not None %}
-                                            {{value|stringformat:"#010x"}}
+                                        {% if registers_dict|get_item:register is not None %}
+                                            {% if register == "eflags" %}
+                                                {{registers_dict|get_item:register|translate_eflags}}
+                                            {% else %}
+                                                {{registers_dict|get_item:register|stringformat:"#010x"}}
+                                            {% endif%}
                                         {% else %}
                                             -
                                         {% endif %}
-                                        {% if not forloop.last %}
-                                        <br>
-                                        {% endif %}
+                                        </td>
                                     {% endfor %}
-                                    </td>
-                                {% endfor %}
                                 </tr>
+                                {% endfor %}
                             {% endfor %}
                             </tbody>
                         </table>
@@ -139,5 +135,28 @@
 <script>
 autosize(document.getElementById('code-textarea'));
 </script>
+
+{% endblock %}
+
+{% block css %}
+    .test-case-row td {
+        border: none;
+    }
+    .test-case-row {
+        border: none;
+        border-left: solid 2px lightgray;
+        border-right: solid 2px lightgray;
+    }
+
+    .first-test-case-row {
+        padding-top: 0.25rem;
+        border-top: solid 2px lightgray;
+        border-radius-top: 0.25rem;
+    }
+    .last-test-case-row {
+        padding-bottom: 0.25rem;
+        border-bottom: solid 2px lightgray;
+        border-radius-bottom: 0.25rem;
+    }
 
 {% endblock %}
