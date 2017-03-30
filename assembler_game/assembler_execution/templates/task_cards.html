@@ -2,8 +2,15 @@
 
 {% load execution_extras %}
 
-{% block content %}
+{% block breadcrumb %}
+    <a class="breadcrumb-item" href="{% url 'stages' %}">Home</a>
+    <a class="breadcrumb-item" href="{% url 'stages' %}">Stages</a>
+    <a class="breadcrumb-item" href="{% url 'stage' name=task.stage.name %}">{{ task.stage.name }}</a>
+    <span class="breadcrumb-item active">{{ task.title }}</span>
+{% endblock %}
 
+{% block content %}
+<div class="row">
 {% if task %}
     <form method="POST">{% csrf_token %}
     {% if error %}
@@ -134,6 +141,7 @@
     {% else %}
     <p>No task</p>
 {% endif %}
+</div>
 
 <script src="http://www.jacklmoore.com/js/autosize.min.js"></script>
 <script>
