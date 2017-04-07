@@ -28,6 +28,7 @@ eflags_dict = {
     21: 'ID',
 }
 
+
 @register.filter
 def translate_eflags(eflags):
     flags = []
@@ -38,3 +39,8 @@ def translate_eflags(eflags):
                 flags.append(eflags_dict[counter])
         counter += 1
     return " ".join(flags)
+
+
+@register.filter
+def line_count(string):
+    return string.count("\n") + 1

@@ -73,17 +73,19 @@
                     <div class="card-block">
                         <h5 class="card-title">Code executed before</h5>
                         <div class="card-text">
-                            <pre><code>{{task.code_prefix}}</code></pre>
+                            <pre id="code-prefix-editor" class="editor">{{task.code_prefix}}</pre>
                         </div>
                     </div>
                     {% endif %}
-                    <pre id="editor">{{code}}</pre>
-                    <input type="hidden" id="code-input" name="code" />
+                    <div class="card-block">
+                        <pre id="code-editor" class="editor">{{code}}</pre>
+                        <input type="hidden" id="code-input" name="code" />
+                    </div>
                     {% if task.code_postfix %}
                     <div class="card-block">
                         <h5 class="card-title">Code executed after</h5>
                         <div class="card-text">
-                            <pre><code>{{task.code_postfix}}</code></pre>
+                            <pre id="code-postfix-editor" class="editor">{{task.code_postfix}}</pre>
                         </div>
                     </div>
                     {% endif %}
@@ -147,12 +149,21 @@
 {% endblock %}
 
 {% block css %}
-    #editor {
-        position: relative;
+    .editor {
         height: 5rem;
-        border-top: solid 1px lightgray;
-        border-bottom: solid 1px lightgray;
+        border: solid 1px lightgray;
     }
+
+{% if task.code_prefix %}
+    #code-prefix-editor {
+        height: {{task.code_prefix|line_count}}rem;
+    }
+{% endif %}
+{% if task.code_postfix %}
+    #code-postfix-editor {
+        height: {{task.code_postfix|line_count}}rem;
+    }
+{% endif %}
 
     .test-case-row td {
         border: none;
@@ -185,9 +196,22 @@
 
 {% block javascript %}
 
-    var editor = ace.edit("editor");
+    var editor = ace.edit("code-editor");
     editor.setTheme("ace/theme/chrome");
     editor.session.setMode("ace/mode/assembly_x86");
+
+{% if task.code_prefix %}
+    var prefix_editor = ace.edit("code-prefix-editor");
+    prefix_editor.setTheme("ace/theme/chrome");
+    prefix_editor.session.setMode("ace/mode/assembly_x86");
+    prefix_editor.setReadOnly(true);
+{% endif %}
+{% if task.code_postfix %}
+    var postfix_editor = ace.edit("code-postfix-editor");
+    postfix_editor.setTheme("ace/theme/chrome");
+    postfix_editor.session.setMode("ace/mode/assembly_x86");
+    postfix_editor.setReadOnly(true);
+{% endif %}
 
     function check_code() {
         $('#code-input').val(editor.getSession().getValue());
