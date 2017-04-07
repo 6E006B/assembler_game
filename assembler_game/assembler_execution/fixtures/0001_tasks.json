@@ -1,0 +1,173 @@
+[
+{
+  "model": "assembler_execution.stage",
+  "pk": 1,
+  "fields": {
+    "name": "Tutorial",
+    "difficulty": 0,
+    "registers": "{}"
+  }
+},
+{
+  "model": "assembler_execution.stage",
+  "pk": 2,
+  "fields": {
+    "name": "Basics",
+    "difficulty": 1,
+    "registers": "{\"eax\":0,\"ebx\":0,\"ecx\":0,\"edx\":0,\"eflags\":0}"
+  }
+},
+{
+  "model": "assembler_execution.stage",
+  "pk": 3,
+  "fields": {
+    "name": "Advanced",
+    "difficulty": 100,
+    "registers": "{}"
+  }
+},
+{
+  "model": "assembler_execution.stage",
+  "pk": 4,
+  "fields": {
+    "name": "Intermediate",
+    "difficulty": 50,
+    "registers": "{}"
+  }
+},
+{
+  "model": "assembler_execution.task",
+  "pk": 1,
+  "fields": {
+    "stage": 1,
+    "level": 0,
+    "title": "INC",
+    "description": "Use the INC instruction to increment eax by 1.",
+    "hint": "",
+    "initial_register_list": "[{\"eax\":5},{\"eax\":23},{\"eax\":42},{\"eax\":35767}]",
+    "expected_register_list": "[{\"eax\":6},{\"eax\":24},{\"eax\":43},{\"eax\":35768}]",
+    "code_prefix": "",
+    "code_postfix": ""
+  }
+},
+{
+  "model": "assembler_execution.task",
+  "pk": 2,
+  "fields": {
+    "stage": 1,
+    "level": 2,
+    "title": "ADD",
+    "description": "Increment eax by 71.",
+    "hint": "",
+    "initial_register_list": "[{\"eax\":23}]",
+    "expected_register_list": "[{\"eax\":94}]",
+    "code_prefix": "",
+    "code_postfix": ""
+  }
+},
+{
+  "model": "assembler_execution.task",
+  "pk": 3,
+  "fields": {
+    "stage": 1,
+    "level": 10,
+    "title": "MOV",
+    "description": "Move the value of eax into ebx.",
+    "hint": "",
+    "initial_register_list": "[{\"eax\":1234},{\"eax\":0},{\"eax\":999}]",
+    "expected_register_list": "[{\"ebx\":1234},{\"ebx\":0},{\"ebx\":999}]",
+    "code_prefix": "",
+    "code_postfix": ""
+  }
+},
+{
+  "model": "assembler_execution.task",
+  "pk": 4,
+  "fields": {
+    "stage": 1,
+    "level": 1,
+    "title": "DEC",
+    "description": "Decrement eax two times.",
+    "hint": "",
+    "initial_register_list": "[{\"eax\":3},{\"eax\":1337},{\"eax\":563322},{\"eax\":35}]",
+    "expected_register_list": "[{\"eax\":1},{\"eax\":1335},{\"eax\":563320},{\"eax\":33}]",
+    "code_prefix": "",
+    "code_postfix": ""
+  }
+},
+{
+  "model": "assembler_execution.task",
+  "pk": 5,
+  "fields": {
+    "stage": 1,
+    "level": 3,
+    "title": "SUB",
+    "description": "Substract 127 from eax.",
+    "hint": "",
+    "initial_register_list": "[{\"eax\":356},{\"eax\":5046},{\"eax\":5632},{\"eax\":53235}]",
+    "expected_register_list": "[{\"eax\":229},{\"eax\":4919},{\"eax\":5505},{\"eax\":53108}]",
+    "code_prefix": "",
+    "code_postfix": ""
+  }
+},
+{
+  "model": "assembler_execution.task",
+  "pk": 6,
+  "fields": {
+    "stage": 1,
+    "level": 4,
+    "title": "MUL",
+    "description": "Multiply the value of eax by 5.",
+    "hint": "The MUL instruction takes the value of a register and multiplies it with eax. The result is again stored in eax. (mul ebx: eax *= ebx)",
+    "initial_register_list": "[{\"eax\":7,\"ebx\":0},{\"eax\":36,\"ebx\":0},{\"eax\":9,\"ebx\":0},{\"eax\":15,\"ebx\":0},{\"eax\":564,\"ebx\":0},{\"eax\":45,\"ebx\":0},{\"eax\":174,\"ebx\":0},{\"eax\":2,\"ebx\":0},{\"eax\":5423,\"ebx\":0},{\"eax\":743,\"ebx\":0}]",
+    "expected_register_list": "[{\"eax\":35},{\"eax\":180},{\"eax\":45},{\"eax\":75},{\"eax\":2820},{\"eax\":225},{\"eax\":870},{\"eax\":10},{\"eax\":27115},{\"eax\":3715}]",
+    "code_prefix": "",
+    "code_postfix": ""
+  }
+},
+{
+  "model": "assembler_execution.task",
+  "pk": 7,
+  "fields": {
+    "stage": 1,
+    "level": 5,
+    "title": "DIV",
+    "description": "Divide value of eax by 7.",
+    "hint": "As with MUL, DIV uses the eax register as the dividend and result storage destination. The operand is the divisor. (DIV ebx: eax /= ebx)",
+    "initial_register_list": "[{\"eax\":7,\"ebx\":0},{\"eax\":343,\"ebx\":0},{\"eax\":4515,\"ebx\":0},{\"eax\":49,\"ebx\":0},{\"eax\":3801,\"ebx\":0}]",
+    "expected_register_list": "[{\"eax\":1},{\"eax\":49},{\"eax\":645},{\"eax\":7},{\"eax\":543}]",
+    "code_prefix": "",
+    "code_postfix": ""
+  }
+},
+{
+  "model": "assembler_execution.task",
+  "pk": 8,
+  "fields": {
+    "stage": 2,
+    "level": 20,
+    "title": "Odd Condition",
+    "description": "Set eax to 0 if eax is odd. Leave it as is otherwise.",
+    "hint": "",
+    "initial_register_list": "[{\"eax\":43},{\"eax\":42},{\"eax\":7222},{\"eax\":80},{\"eax\":17},{\"eax\":9237}]",
+    "expected_register_list": "[{\"eax\":0},{\"eax\":42},{\"eax\":7222},{\"eax\":80},{\"eax\":0},{\"eax\":0}]",
+    "code_prefix": "",
+    "code_postfix": ""
+  }
+},
+{
+  "model": "assembler_execution.task",
+  "pk": 9,
+  "fields": {
+    "stage": 2,
+    "level": 30,
+    "title": "Pre- and Postfix",
+    "description": "The prefix code is being executed right before and the postfix code right after your modifiable part. The initial state is prior to any execution and the expected state is after the postfix code has finished. The task is to reinstate the initial values of eax.",
+    "hint": "",
+    "initial_register_list": "[{\"eax\":43},{\"eax\":42},{\"eax\":7222},{\"eax\":80},{\"eax\":17},{\"eax\":9237}]",
+    "expected_register_list": "[{\"eax\":43},{\"eax\":42},{\"eax\":7222},{\"eax\":80},{\"eax\":17},{\"eax\":9237}]",
+    "code_prefix": "xor eax, 1337\r\nmov ecx, eax",
+    "code_postfix": "mov ebx, eax\r\nmov eax, ecx\r\nxor eax, ebx"
+  }
+}
+]
