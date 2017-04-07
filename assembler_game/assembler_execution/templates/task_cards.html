@@ -12,7 +12,7 @@
 {% block content %}
 <div class="row">
 {% if task %}
-    <form method="POST">{% csrf_token %}
+    <form id="task-form" method="POST">{% csrf_token %}
     {% if error %}
         <div class="alert alert-danger alert-dismissable" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -42,7 +42,7 @@
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <button type="submit" class="btn btn-primary">CHECK</button>
+                    <button onclick="check_code();" type="button" class="btn btn-primary btn-block">CHECK</button>
                     <div class="card-block">
                         <h3 class="card-title">{{ task.title }}</h3>
                         <div class="card-text">{{task.description}}</div>
@@ -59,13 +59,13 @@
                         </div>
                         {% endif %}
                     </div>
-                    <button type="submit" class="btn btn-primary">CHECK</button>
+                    <button onclick="check_code();" type="button" class="btn btn-primary btn-block">CHECK</button>
                 </div>
             </div>
             <!--TODO: add if statement to show only if necessary-->
             <div class="col">
                 <div class="card">
-                    <button type="submit" class="btn btn-primary">CHECK</button>
+                    <button onclick="check_code();" type="button" class="btn btn-primary btn-block">CHECK</button>
                     <div class="card-block">
                         <h5 class="card-title">Assembler code</h5>
                     </div>
@@ -77,9 +77,8 @@
                         </div>
                     </div>
                     {% endif %}
-                    <!--<div class="card-block">-->
-                        <textarea id="code-textarea" class="form-control tt" name="code" placeholder="your asm code" rows="1">{{code}}</textarea>
-                    <!--</div>-->
+                    <pre id="editor">{{code}}</pre>
+                    <input type="hidden" id="code-input" name="code" />
                     {% if task.code_postfix %}
                     <div class="card-block">
                         <h5 class="card-title">Code executed after</h5>
@@ -88,7 +87,7 @@
                         </div>
                     </div>
                     {% endif %}
-                    <button type="submit" class="btn btn-primary">CHECK</button>
+                    <button onclick="check_code();" type="button" class="btn btn-primary btn-block">CHECK</button>
                 </div>
             </div>
 
@@ -145,14 +144,16 @@
 {% endif %}
 </div>
 
-<script src="http://www.jacklmoore.com/js/autosize.min.js"></script>
-<script>
-autosize(document.getElementById('code-textarea'));
-</script>
-
 {% endblock %}
 
 {% block css %}
+    #editor {
+        position: relative;
+        height: 5rem;
+        border-top: solid 1px lightgray;
+        border-bottom: solid 1px lightgray;
+    }
+
     .test-case-row td {
         border: none;
     }
@@ -175,4 +176,22 @@ autosize(document.getElementById('code-textarea'));
     .eflags {
         border: solid 1px lightgray;
     }
+{% endblock %}
+
+
+{% block javascriptincludes %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js" integrity="sha256-xrr4HH5eSY+cFz4SH7ja/LaAi9qcEdjMpeMP49/iOLs=" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block javascript %}
+
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/chrome");
+    editor.session.setMode("ace/mode/assembly_x86");
+
+    function check_code() {
+        $('#code-input').val(editor.getSession().getValue());
+        $('#task-form').submit();
+    }
+
 {% endblock %}
