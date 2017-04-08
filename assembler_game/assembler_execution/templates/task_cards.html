@@ -205,12 +205,16 @@
     prefix_editor.setTheme("ace/theme/chrome");
     prefix_editor.session.setMode("ace/mode/assembly_x86");
     prefix_editor.setReadOnly(true);
+    prefix_editor.setHighlightActiveLine(false);
+    prefix_editor.setHighlightGutterLine(false);
 {% endif %}
 {% if task.code_postfix %}
     var postfix_editor = ace.edit("code-postfix-editor");
     postfix_editor.setTheme("ace/theme/chrome");
     postfix_editor.session.setMode("ace/mode/assembly_x86");
     postfix_editor.setReadOnly(true);
+    postfix_editor.setHighlightActiveLine(false);
+    postfix_editor.setHighlightGutterLine(false);
 {% endif %}
 
     function check_code() {
