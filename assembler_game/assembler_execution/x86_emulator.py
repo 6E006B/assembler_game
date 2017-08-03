@@ -8,34 +8,49 @@ from unicorn.x86_const import *
 class X86Emulator(object):
 
     REGISTERS = {
-        'eax': UC_X86_REG_EAX,
-        'ebx': UC_X86_REG_EBX,
-        'ecx': UC_X86_REG_ECX,
-        'edx': UC_X86_REG_EDX,
-        'edi': UC_X86_REG_EDI,
-        'ebp': UC_X86_REG_EBP,
-        'eip': UC_X86_REG_EIP,
-        'esi': UC_X86_REG_ESI,
-        'esp': UC_X86_REG_ESP,
+        # DATA REGISTERS
+        'eax': UC_X86_REG_EAX,  # accumulator register (32 bit)
+        'ax': UC_X86_REG_AX,    # (16 bit)
+        'ah': UC_X86_REG_AH,    # (8bit - high byte)
+        'al': UC_X86_REG_AL,    # (8bit - low byte)
+        'ebx': UC_X86_REG_EBX,  # base register (32 bit)
+        'bx': UC_X86_REG_BX,    # (16 bit)
+        'bh': UC_X86_REG_BH,    # (8bit - high byte)
+        'bl': UC_X86_REG_BL,    # (8bit - low byte)
+        'ecx': UC_X86_REG_ECX,  # count register (32 bit)
+        'cx': UC_X86_REG_CX,    # (16 bit)
+        'ch': UC_X86_REG_CH,    # (8bit - high byte)
+        'cl': UC_X86_REG_CL,    # (8bit - low byte)
+        'edx': UC_X86_REG_EDX,  # data register (32 bit)
+        'dx': UC_X86_REG_DX,    # (16 bit)
+        'dh': UC_X86_REG_DH,    # (8bit - high byte)
+        'dl': UC_X86_REG_DL,    # (8bit - low byte)
+
+        # POINTER REGISTERS
+        'eip': UC_X86_REG_EIP,  # instruction pointer
+        'esp': UC_X86_REG_ESP,  # stack pointer
+        'ebp': UC_X86_REG_EBP,  # base pointer
+
+        # INDEX REGISTERS
+        'esi': UC_X86_REG_ESI,  # source index
+        'edi': UC_X86_REG_EDI,  # destination index
+
+        # CONTROL REGISTERS
         'eflags': UC_X86_REG_EFLAGS,
-        'ah': UC_X86_REG_AH,
-        'al': UC_X86_REG_AL,
-        'ax': UC_X86_REG_AX,
-        'bh': UC_X86_REG_BH,
-        'bl': UC_X86_REG_BL,
-        'bx': UC_X86_REG_BX,
+
         'bp': UC_X86_REG_BP,
         'bpl': UC_X86_REG_BPL,
-        'ch': UC_X86_REG_CH,
-        'cl': UC_X86_REG_CL,
-        'cx': UC_X86_REG_CX,
-        'cs': UC_X86_REG_CS,
-        'dh': UC_X86_REG_DH,
-        'dl': UC_X86_REG_DL,
-        'dx': UC_X86_REG_DX,
-        'ds': UC_X86_REG_DS,
         'di': UC_X86_REG_DI,
         'dil': UC_X86_REG_DIL,
+
+        # SEGMENT REGISTERS
+        'cs': UC_X86_REG_CS,  # code segment
+        'ds': UC_X86_REG_DS,  # data segment
+        'ss': UC_X86_REG_SS,  # stack segment
+        'es': UC_X86_REG_ES,  # extra segment
+        # FS and GS have no hardware-assigned uses
+        'fs': UC_X86_REG_FS,  # win: exception handling chain
+        'gs': UC_X86_REG_GS,  # thread local storage
     }
 
     START_ADDRESS = 0x1000000
