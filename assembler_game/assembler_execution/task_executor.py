@@ -21,6 +21,7 @@ class TaskExecutor(object):
             self.task.code_postfix
         ]).strip()
         self.actual_registers = []
+        # iterate over all test cases
         for i in range(len(self.task.initial_register_list)):
             initial_registers = self.task.initial_register_list[i]
             machine_code = self.at.bytify_assembly(self.at.assemble(complete_assembler_code, addr=X86Emulator.BASE_ADDRESS))
