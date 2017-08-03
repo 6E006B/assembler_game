@@ -71,16 +71,8 @@ class X86Emulator(object):
         self.cpu.mem_map(self.STACK_ADDRESS - stack_size, stack_size)
 
     def _initialise_registers(self):
-        # self.set_register('cs', self.BASE_ADDRESS >> 8)
-        # self.set_register('ss', self.STACK_ADDRESS >> 8)
-        # self.set_register('ds', self.BASE_ADDRESS >> 8)
-        # self.set_register('es', self.BASE_ADDRESS >> 8)
-        # self.set_register('ip', self.BASE_ADDRESS & 0xff)
         self.set_register('esp', self.STACK_ADDRESS)
         self.set_register('ebp', self.STACK_ADDRESS)
-        # self.set_register('eip', self.BASE_ADDRESS)
-        # for register in self.REGISTERS.values():
-        #     self.cpu.reg_write(register, 0x0)
 
     def set_register_values(self, register_values):
         for register, value in register_values.items():
