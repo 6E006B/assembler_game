@@ -119,15 +119,23 @@ class X86Emulator(object):
 
 if __name__ == "__main__":
     # code to be emulated
-    code = b"\x41\x4a" # INC ecx; DEC edx
+    # code = b"\x41\x4a" # INC ecx; DEC edx
+    # code = b"\x55\x89\xe5\xb8\xa4\x03\x00\x00\xc9\xc3\xe8\xf1\xff\xff\xff\x89\xc3"
+    code = b"\xb8\xa4\x03\x00\x00\xc3\xe8\xf5\xff\xff\xff\x89\xc3"
+    code = b"\xe8\x00\x00\x00\x00\x83\xc0\x01\xc3"
+    code = b"\xb8\x01\x00\x00\x00\x6a\x00\xe8\x00\x00\x00\x00\x83\xc0\x01"
+    code = b"\x6a\x00"
+    # code = b"\x41\x89\x0D\x00\x00\x00\x02\x41\x8B\x0D\x00\x00\x00\x02"
 
     print("Emulate i386 code: '0x{}'".format(binascii.hexlify(code)))
     registers = {
+        'eax': 0x0,
+        'ebx': 0x0,
         'ecx': 0x1234,
         'edx': 0x7890,
     }
 
-    emu = X86Emulator(code, registers)
+    emu = X86Emulator(code, registers, execution_offset=0)
     # emu.execute()
 
     while emu.step():
@@ -136,7 +144,11 @@ if __name__ == "__main__":
         for reg, val in registers.items():
             print("{}: {}".format(reg, hex(val)))
 
+    r_eax = emu.get_register('eax')
+    r_ebx = emu.get_register('ebx')
     r_ecx = emu.get_register('ecx')
     r_edx = emu.get_register('edx')
+    print(">>> EAX = 0x%x" % r_eax)
+    print(">>> EBX = 0x%x" % r_ebx)
     print(">>> ECX = 0x%x" % r_ecx)
     print(">>> EDX = 0x%x" % r_edx)

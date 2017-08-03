@@ -49,3 +49,8 @@ if __name__ == "__main__":
     machine_code = '\x34\x61\x34\x61'
     instructions = at.disassemble(machine_code)
     print("{} => {}".format(binascii.hexlify(machine_code), at.stringify_disassembly(instructions)))
+
+    machine_code = b"\xb8\xa4\x03\x00\x00\xc3\xe8\xf5\xff\xff\xff\x89\xc3"
+    machine_code = b"\x8B\x0D\x00\x00\x00\x02"
+    instructions = at.disassemble(machine_code, addr=0x1000000)
+    print("{} => {}".format(binascii.hexlify(machine_code), at.stringify_disassembly(instructions)))
