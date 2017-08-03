@@ -28,6 +28,7 @@ class Task(models.Model):
     hint = models.TextField(default="", blank=True)
     initial_register_list = JSONField(default=None, blank=True, null=True, load_kwargs={'object_pairs_hook': OrderedDict})
     expected_register_list = JSONField(load_kwargs={'object_pairs_hook': OrderedDict})
+    hidden_code_prefix = models.TextField(default="", blank=True, null=True)
     code_prefix = models.TextField(default="", blank=True, null=True)
     code_postfix = models.TextField(default="", blank=True, null=True)
 

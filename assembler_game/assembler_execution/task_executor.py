@@ -15,6 +15,7 @@ class TaskExecutor(object):
     def execute(self, assembler):
         execution_offset = len(self.at.bytify_assembly(self.at.assemble(self.task.hidden_code_prefix, addr=X86Emulator.BASE_ADDRESS)))
         complete_assembler_code = "\n".join([
+            self.task.hidden_code_prefix,
             self.task.code_prefix,
             assembler,
             self.task.code_postfix
