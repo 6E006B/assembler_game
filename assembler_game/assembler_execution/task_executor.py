@@ -13,6 +13,7 @@ class TaskExecutor(object):
         self.actual_registers = []
 
     def execute(self, assembler):
+        execution_offset = len(self.at.bytify_assembly(self.at.assemble(self.task.hidden_code_prefix, addr=X86Emulator.BASE_ADDRESS)))
         complete_assembler_code = "\n".join([
             self.task.code_prefix,
             assembler,
@@ -21,8 +22,8 @@ class TaskExecutor(object):
         self.actual_registers = []
         for i in range(len(self.task.initial_register_list)):
             initial_registers = self.task.initial_register_list[i]
-            machine_code = self.at.bytify_assembly(self.at.assemble(complete_assembler_code, addr=X86Emulator.START_ADDRESS))
-            self.cpu = X86Emulator(machine_code, initial_registers)
+            machine_code = self.at.bytify_assembly(self.at.assemble(complete_assembler_code, addr=X86Emulator.BASE_ADDRESS))
+            self.cpu = X86Emulator(machine_code, initial_registers, execution_offset=execution_offset)
             self.cpu.execute()
             self.actual_registers.append(self.get_relevant_registers(initial_registers, self.task.expected_register_list[i]))
 

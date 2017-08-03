@@ -40,7 +40,7 @@ if __name__ == "__main__":
     assembler_code = "INC ecx;DEC edx"
     machine_code = b'\x41\x4a'
 
-    assembly = at.assemble(assembler_code)
+    assembly = at.assemble(assembler_code, addr=0x1000000)
     print("{} => {}".format(assembler_code, at.stringify_assembly(assembly)))
 
     instructions = at.disassemble(machine_code)
