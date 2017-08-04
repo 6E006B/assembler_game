@@ -53,26 +53,27 @@ class X86Emulator(object):
         'gs': UC_X86_REG_GS,  # thread local storage
     }
 
-    BASE_ADDRESS = 0x1000000
-    STACK_ADDRESS = 0x2000000
+    CODE_BASE_ADDRESS = 0x1000000
+    STACK_BASE_ADDRESS = 0x2000000
+    CODE_SEGMENT_SIZE = 2 * 1024 * 1024
+    STACK_SEGMENT_SIZE = 2* 1024 * 1024
 
     def __init__(self, code, register_values, execution_offset=0):
         self.code = code
         self.cpu = Uc(UC_ARCH_X86, UC_MODE_32)
-        self.ip = self.BASE_ADDRESS + execution_offset
+        self.ip = self.CODE_BASE_ADDRESS + execution_offset
         self._initialise_memory()
         self._initialise_registers()
         self.set_register_values(register_values)
         self.set_code(code, execution_offset)
 
     def _initialise_memory(self):
-        stack_size = 2 * 1024 * 1024
-        self.cpu.mem_map(self.BASE_ADDRESS, 2 * 1024 * 1024)
-        self.cpu.mem_map(self.STACK_ADDRESS - stack_size, stack_size)
+        self.cpu.mem_map(self.CODE_BASE_ADDRESS, self.CODE_SEGMENT_SIZE)
+        self.cpu.mem_map(self.STACK_BASE_ADDRESS - self.STACK_SEGMENT_SIZE, self.STACK_SEGMENT_SIZE)
 
     def _initialise_registers(self):
-        self.set_register('esp', self.STACK_ADDRESS)
-        self.set_register('ebp', self.STACK_ADDRESS)
+        self.set_register('esp', self.STACK_BASE_ADDRESS)
+        self.set_register('ebp', self.STACK_BASE_ADDRESS)
 
     def set_register_values(self, register_values):
         for register, value in register_values.items():
@@ -80,8 +81,8 @@ class X86Emulator(object):
 
     def set_code(self, code, execution_offset=0):
         self.code = code
-        self.cpu.mem_write(self.BASE_ADDRESS, code)
-        self.ip = self.BASE_ADDRESS + execution_offset
+        self.cpu.mem_write(self.CODE_BASE_ADDRESS, code)
+        self.ip = self.CODE_BASE_ADDRESS + execution_offset
 
     def get_register(self, register):
         return self.cpu.reg_read(self.REGISTERS[register])
@@ -99,12 +100,13 @@ class X86Emulator(object):
     def execute(self):
         # emulate code in infinite time & unlimited instructions
         # print("executing '{}'".format(binascii.hexlify(self.code)))
-        self.cpu.emu_start(self.ip, self.BASE_ADDRESS + len(self.code))
+        self.cpu.emu_start(self.ip, self.CODE_BASE_ADDRESS + len(self.code))
 
     def step(self):
-        end_address = self.BASE_ADDRESS + len(self.code)
+        end_address = self.CODE_BASE_ADDRESS + len(self.code)
         if self.ip <= end_address:
-            self.cpu.emu_start(self.ip, self.BASE_ADDRESS + len(self.code), count=1)
+            print("emu_start({}, {}, count=1)".format(hex(self.ip), hex(self.CODE_BASE_ADDRESS + len(self.code))))
+            self.cpu.emu_start(self.ip, self.CODE_BASE_ADDRESS + len(self.code), count=1)
         old_ip = self.ip
         self.ip = self.get_register('eip')
         return end_address >= self.ip != old_ip

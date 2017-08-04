@@ -107,21 +107,24 @@ class TaskView(LoginRequiredBaseView):
                         }
                     ]
         """
-        assert len(task.initial_register_list) == len(task.expected_register_list)
         if actual_registers_list:
-            assert len(actual_registers_list) == len(task.initial_register_list)
+            assert len(actual_registers_list) == len(task.test_cases.all())
         test_case_list = []
-        for i in range(len(task.initial_register_list)):
+        for index, test_case in enumerate(task.test_cases.all()):
+            initial_registers = test_case.get_initial_registers()
+            expected_registers = test_case.get_expected_registers()
             success = True
-            register_names = self.get_register_names(task.stage.registers, task.initial_register_list[i], task.expected_register_list[i])
-            initial_registers = task.stage.registers.copy()
-            expected_registers = {}
+            register_names = self.get_register_names(task.stage.registers, initial_registers, expected_registers)
+            stage_initial_registers = task.stage.registers.copy()
             actual_registers = None if not actual_registers_list else {}
             for register_name in register_names:
-                initial_registers[register_name] = task.initial_register_list[i].get(register_name, initial_registers.get(register_name))
-                expected_registers[register_name] = task.expected_register_list[i].get(register_name)
+                initial_registers[register_name] = initial_registers.get(
+                    register_name,
+                    stage_initial_registers.get(register_name)
+                )
+                expected_registers[register_name] = expected_registers.get(register_name)
                 if actual_registers is not None:
-                    actual_registers[register_name] = actual_registers_list[i].get(register_name)
+                    actual_registers[register_name] = actual_registers_list[index].get(register_name)
                     if success and expected_registers[register_name] is not None:
                         success = expected_registers[register_name] == actual_registers[register_name]
             registers = [

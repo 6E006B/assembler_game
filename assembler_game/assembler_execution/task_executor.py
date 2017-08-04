@@ -6,28 +6,34 @@ from .x86_emulator import X86Emulator
 class TaskExecutor(object):
 
     def __init__(self, task):
-        assert len(task.initial_register_list) == len(task.expected_register_list)
         self.task = task
         self.at = AssemblerTranslator()
         self.cpu = None
         self.actual_registers = []
 
     def execute(self, assembler):
-        execution_offset = len(self.at.bytify_assembly(self.at.assemble(self.task.hidden_code_prefix, addr=X86Emulator.BASE_ADDRESS)))
-        complete_assembler_code = "\n".join([
-            self.task.hidden_code_prefix,
-            self.task.code_prefix,
-            assembler,
-            self.task.code_postfix
-        ]).strip()
         self.actual_registers = []
         # iterate over all test cases
-        for i in range(len(self.task.initial_register_list)):
-            initial_registers = self.task.initial_register_list[i]
-            machine_code = self.at.bytify_assembly(self.at.assemble(complete_assembler_code, addr=X86Emulator.BASE_ADDRESS))
+        for test_case in self.task.test_cases.all():
+            hidden_code_prefix = test_case.get_hidden_code_prefix()
+            execution_offset = 0
+            if hidden_code_prefix:
+                execution_offset = len(self.at.bytify_assembly(
+                    self.at.assemble(hidden_code_prefix, addr=X86Emulator.CODE_BASE_ADDRESS)
+                ))
+            complete_assembler_code = "\n".join([
+                hidden_code_prefix,
+                self.task.code_prefix,
+                assembler,
+                self.task.code_postfix
+            ]).strip()
+            initial_registers = test_case.get_initial_registers()
+            expected_registers = test_case.get_expected_registers()
+            machine_code = self.at.bytify_assembly(self.at.assemble(complete_assembler_code, addr=X86Emulator.CODE_BASE_ADDRESS))
+            print("code: '{}'".format(self.at.stringify_assembly(self.at.assemble(complete_assembler_code, addr=X86Emulator.CODE_BASE_ADDRESS))))
             self.cpu = X86Emulator(machine_code, initial_registers, execution_offset=execution_offset)
             self.cpu.execute()
-            self.actual_registers.append(self.get_relevant_registers(initial_registers, self.task.expected_register_list[i]))
+            self.actual_registers.append(self.get_relevant_registers(initial_registers, expected_registers))
 
     def get_actual_registers(self):
         return self.actual_registers
@@ -42,17 +48,9 @@ class TaskExecutor(object):
 
     def was_successful(self):
         success = True
-        for i in range(len(self.task.expected_register_list)):
-            for register, value in self.task.expected_register_list[i].items():
-                success = self.actual_registers[i][register] == value
+        for index, test_case in enumerate(self.task.test_cases.all()):
+            for register, value in test_case.get_expected_registers().items():
+                success = self.actual_registers[index][register] == value
                 if not success:
                     return success
-        return success
-
-    def was_successful_old(self):
-        success = True
-        for register, value in self.task.expected_register_list.items():
-            success = self.cpu.get_register(register) == value
-            if not success:
-                break
         return success

@@ -26,14 +26,45 @@ class Task(models.Model):
     title = models.CharField(max_length=32)
     description = models.TextField()
     hint = models.TextField(default="", blank=True)
-    initial_register_list = JSONField(default=None, blank=True, null=True, load_kwargs={'object_pairs_hook': OrderedDict})
-    expected_register_list = JSONField(load_kwargs={'object_pairs_hook': OrderedDict})
-    hidden_code_prefix = models.TextField(default="", blank=True, null=True)
+    initial_registers_default = JSONField(default={}, blank=True, load_kwargs={'object_pairs_hook': OrderedDict})
+    expected_registers_default = JSONField(default={}, blank=True, load_kwargs={'object_pairs_hook': OrderedDict})
+    hidden_code_prefix_default = models.TextField(default="", blank=True, null=True)
     code_prefix = models.TextField(default="", blank=True, null=True)
     code_postfix = models.TextField(default="", blank=True, null=True)
 
     def __str__(self):
         return '({}) {}'.format(self.level, self.title)
+
+
+class TaskTestCase(models.Model):
+    task = models.ForeignKey(Task, related_name='test_cases')
+    use_initial_registers_default = models.BooleanField(default=False)
+    initial_registers = JSONField(default={}, blank=True, load_kwargs={'object_pairs_hook': OrderedDict})
+    use_expected_registers_default = models.BooleanField(default=False)
+    expected_registers = JSONField(load_kwargs={'object_pairs_hook': OrderedDict})
+    use_hidden_code_prefix_default = models.BooleanField(default=False)
+    hidden_code_prefix = models.TextField(default="", blank=True, null=True)
+
+    def get_initial_registers(self):
+        initial_registers = self.initial_registers
+        if self.use_initial_registers_default:
+            initial_registers = self.task.initial_registers_default
+        return initial_registers
+
+    def get_expected_registers(self):
+        expected_registers = self.expected_registers
+        if self.use_expected_registers_default:
+            expected_registers = self.task.expected_registers_default
+        return expected_registers
+
+    def get_hidden_code_prefix(self):
+        hidden_code_prefix = self.hidden_code_prefix
+        if self.use_hidden_code_prefix_default:
+            hidden_code_prefix = self.task.hidden_code_prefix_default
+        return hidden_code_prefix
+
+    def __str__(self):
+        return "TC for '{}'".format(self.task)
 
 
 class TaskSolution(models.Model):
