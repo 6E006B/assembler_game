@@ -29,9 +29,10 @@ class TaskExecutor(object):
             ]).strip()
             initial_registers = test_case.get_initial_registers()
             expected_registers = test_case.get_expected_registers()
+            stack = test_case.get_stack()
             machine_code = self.at.bytify_assembly(self.at.assemble(complete_assembler_code, addr=X86Emulator.CODE_BASE_ADDRESS))
             print("code: '{}'".format(self.at.stringify_assembly(self.at.assemble(complete_assembler_code, addr=X86Emulator.CODE_BASE_ADDRESS))))
-            self.cpu = X86Emulator(machine_code, initial_registers, execution_offset=execution_offset)
+            self.cpu = X86Emulator(machine_code, initial_registers, stack=stack, execution_offset=execution_offset)
             self.cpu.execute()
             self.actual_registers.append(self.get_relevant_registers(initial_registers, expected_registers))
 

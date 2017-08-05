@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 import binascii
+import struct
 from unicorn import *
 from unicorn.x86_const import *
 
@@ -58,7 +59,7 @@ class X86Emulator(object):
     CODE_SEGMENT_SIZE = 2 * 1024 * 1024
     STACK_SEGMENT_SIZE = 2* 1024 * 1024
 
-    def __init__(self, code, register_values, execution_offset=0):
+    def __init__(self, code, register_values, stack=[], execution_offset=0):
         self.code = code
         self.cpu = Uc(UC_ARCH_X86, UC_MODE_32)
         self.ip = self.CODE_BASE_ADDRESS + execution_offset
@@ -66,6 +67,7 @@ class X86Emulator(object):
         self._initialise_registers()
         self.set_register_values(register_values)
         self.set_code(code, execution_offset)
+        self.set_stack(stack)
 
     def _initialise_memory(self):
         self.cpu.mem_map(self.CODE_BASE_ADDRESS, self.CODE_SEGMENT_SIZE)
@@ -83,6 +85,15 @@ class X86Emulator(object):
         self.code = code
         self.cpu.mem_write(self.CODE_BASE_ADDRESS, code)
         self.ip = self.CODE_BASE_ADDRESS + execution_offset
+
+    def set_stack(self, stack, offset=0):
+        address = self.STACK_BASE_ADDRESS - offset
+        for stack_entry in stack:
+            if isinstance(stack_entry, int):
+                stack_entry = struct.pack("<l", stack_entry)
+            address -= len(stack_entry)
+            self.cpu.mem_write(address, stack_entry)
+        self.set_register('esp', address)
 
     def get_register(self, register):
         return self.cpu.reg_read(self.REGISTERS[register])

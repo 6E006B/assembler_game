@@ -29,6 +29,7 @@ class Task(models.Model):
     initial_registers_default = JSONField(default={}, blank=True, load_kwargs={'object_pairs_hook': OrderedDict})
     expected_registers_default = JSONField(default={}, blank=True, load_kwargs={'object_pairs_hook': OrderedDict})
     hidden_code_prefix_default = models.TextField(default="", blank=True, null=True)
+    stack_default = JSONField(default=[], blank=True)
     code_prefix = models.TextField(default="", blank=True, null=True)
     code_postfix = models.TextField(default="", blank=True, null=True)
 
@@ -44,6 +45,8 @@ class TaskTestCase(models.Model):
     expected_registers = JSONField(load_kwargs={'object_pairs_hook': OrderedDict})
     use_hidden_code_prefix_default = models.BooleanField(default=False)
     hidden_code_prefix = models.TextField(default="", blank=True, null=True)
+    use_stack_default = models.BooleanField(default=False)
+    stack = JSONField(default=[], blank=True)
 
     def get_initial_registers(self):
         initial_registers = self.initial_registers
@@ -62,6 +65,12 @@ class TaskTestCase(models.Model):
         if self.use_hidden_code_prefix_default:
             hidden_code_prefix = self.task.hidden_code_prefix_default
         return hidden_code_prefix
+
+    def get_stack(self):
+        stack = self.stack
+        if self.use_stack_default:
+            stack = self.task.stack_default
+        return stack
 
     def __str__(self):
         return "TC for '{}'".format(self.task)
