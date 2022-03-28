@@ -143,8 +143,8 @@ class TaskView(LoginRequiredBaseView):
 
     def get_register_names(self, stage_registers, initial_registers, expected_registers):
         # first get the ones of the stage to preserve the initial order
-        register_names = stage_registers.keys()
-        for register in initial_registers.keys() + expected_registers.keys():
+        register_names = list(stage_registers.keys())
+        for register in list(initial_registers.keys()) + list(expected_registers.keys()):
             if register not in register_names:
                 register_names.append(register)
         return register_names
