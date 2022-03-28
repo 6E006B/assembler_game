@@ -8,7 +8,7 @@ from .task_executor import TaskExecutor
 
 
 class LoginRequiredBaseView(LoginRequiredMixin, View):
-    login_url = '/login/'
+    login_url = '/accounts/login/'
     redirect_field_name = 'next'
 
 
@@ -69,7 +69,7 @@ class TaskView(LoginRequiredBaseView):
         task = get_object_or_404(Task, id=id)
         context['task'] = task
         task_solution, _ = TaskSolution.objects.get_or_create(task=task, user=request.user)
-        if request.POST.has_key('code') and request.POST['code']:
+        if 'code' in request.POST and request.POST['code']:
             code = request.POST['code'].replace("\r", "")
             context['code'] = code
             task_solution.code = code

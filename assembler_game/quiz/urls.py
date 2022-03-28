@@ -1,8 +1,8 @@
 
-from django.conf.urls import url
+from django.urls import path
 
 from .views import QuestionView
 
 urlpatterns = [
-    url('^question$', QuestionView.as_view(), name='question'),
+    path('question/', QuestionView.as_view(), name='question'),
 ]

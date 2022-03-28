@@ -1,11 +1,11 @@
 
-from django.conf.urls import include, url
+from django.urls import include, path
 from django.contrib import admin
-from django.contrib.auth.views import login
+from django.contrib.auth.views import LoginView
 
 urlpatterns = [
-    url(r'^exec/', include('assembler_execution.urls')),
-    url(r'^quiz/', include('quiz.urls')),
-    url(r'^admin/', admin.site.urls),
-    url(r'^login/?$', login, {'template_name': 'login.html'}, name='login'),
+    path('exec/', include('assembler_execution.urls')),
+    path('quiz/', include('quiz.urls')),
+    path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

@@ -21,7 +21,7 @@ class Stage(models.Model):
 
 
 class Task(models.Model):
-    stage = models.ForeignKey(Stage, related_name='tasks')
+    stage = models.ForeignKey(Stage, related_name='tasks', on_delete=models.CASCADE)
     level = models.PositiveIntegerField()
     title = models.CharField(max_length=32)
     description = models.TextField()
@@ -38,7 +38,7 @@ class Task(models.Model):
 
 
 class TaskTestCase(models.Model):
-    task = models.ForeignKey(Task, related_name='test_cases')
+    task = models.ForeignKey(Task, related_name='test_cases', on_delete=models.CASCADE)
     use_initial_registers_default = models.BooleanField(default=False)
     initial_registers = JSONField(default={}, blank=True, load_kwargs={'object_pairs_hook': OrderedDict})
     use_expected_registers_default = models.BooleanField(default=False)
@@ -77,8 +77,8 @@ class TaskTestCase(models.Model):
 
 
 class TaskSolution(models.Model):
-    user = models.ForeignKey(User, related_name='task_solutions')
-    task = models.ForeignKey(Task, related_name='task_solutions')
+    user = models.ForeignKey(User, related_name='task_solutions', on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, related_name='task_solutions', on_delete=models.CASCADE)
     code = models.TextField()
     solved = models.BooleanField(default=False)
 

@@ -9,7 +9,7 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    question = models.ForeignKey('Question')
+    question = models.ForeignKey('Question', on_delete=models.CASCADE)
     text = models.TextField()
     correct = models.BooleanField()
 

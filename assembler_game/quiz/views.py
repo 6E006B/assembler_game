@@ -2,12 +2,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views import View
 
-from models import Answer, Question
+from .models import Answer, Question
 
 
 class QuestionView(LoginRequiredMixin, View):
 
-    login_url = '/login/'
+    login_url = '/accounts/login/'
     redirect_field_name = 'next'
 
     def get(self, request, *args, **kwargs):
