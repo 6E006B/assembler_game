@@ -1,4 +1,6 @@
 
+from keystone import KsError
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.views import View
@@ -80,7 +82,7 @@ class TaskView(LoginRequiredBaseView):
                 context['solved'] = task_executor.was_successful()
                 if not task_solution.solved and context['solved']:
                     task_solution.solved = True
-            except Exception as e:
+            except KsError as e:
                 context['error'] = str(e)
             task_solution.save()
         else:
