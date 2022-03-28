@@ -2,11 +2,12 @@ from __future__ import print_function
 
 import binascii
 import struct
+from typing import Union
 from unicorn import *
 from unicorn.x86_const import *
 
 
-class X86Emulator(object):
+class X86Emulator:
 
     REGISTERS = {
         # DATA REGISTERS
@@ -57,9 +58,9 @@ class X86Emulator(object):
     CODE_BASE_ADDRESS = 0x1000000
     STACK_BASE_ADDRESS = 0x2000000
     CODE_SEGMENT_SIZE = 2 * 1024 * 1024
-    STACK_SEGMENT_SIZE = 2* 1024 * 1024
+    STACK_SEGMENT_SIZE = 2 * 1024 * 1024
 
-    def __init__(self, code, register_values, stack=[], execution_offset=0):
+    def __init__(self, code: bytes, register_values: dict, stack: list = [], execution_offset: int = 0):
         self.code = code
         self.cpu = Uc(UC_ARCH_X86, UC_MODE_32)
         self.ip = self.CODE_BASE_ADDRESS + execution_offset
@@ -77,16 +78,16 @@ class X86Emulator(object):
         self.set_register('esp', self.STACK_BASE_ADDRESS)
         self.set_register('ebp', self.STACK_BASE_ADDRESS)
 
-    def set_register_values(self, register_values):
+    def set_register_values(self, register_values: dict):
         for register, value in register_values.items():
             self.set_register(register, value)
 
-    def set_code(self, code, execution_offset=0):
+    def set_code(self, code: bytes, execution_offset: int = 0):
         self.code = code
         self.cpu.mem_write(self.CODE_BASE_ADDRESS, code)
         self.ip = self.CODE_BASE_ADDRESS + execution_offset
 
-    def set_stack(self, stack, offset=0):
+    def set_stack(self, stack: Union[int, bytes], offset=0):
         address = self.STACK_BASE_ADDRESS - offset
         for stack_entry in stack:
             if isinstance(stack_entry, int):
@@ -95,10 +96,10 @@ class X86Emulator(object):
             self.cpu.mem_write(address, stack_entry)
         self.set_register('esp', address)
 
-    def get_register(self, register):
+    def get_register(self, register: str):
         return self.cpu.reg_read(self.REGISTERS[register])
 
-    def set_register(self, register, value):
+    def set_register(self, register: str, value: int):
         self.cpu.reg_write(self.REGISTERS[register], value)
 
     def get_registers(self):
@@ -121,6 +122,7 @@ class X86Emulator(object):
         old_ip = self.ip
         self.ip = self.get_register('eip')
         return end_address >= self.ip != old_ip
+
 
 if __name__ == "__main__":
     # code to be emulated
