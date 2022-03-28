@@ -14,7 +14,7 @@
   "fields": {
     "name": "Basics",
     "difficulty": 1,
-    "registers": "{\"eax\":0,\"ebx\":0,\"ecx\":0,\"edx\":0,\"eflags\":0}"
+    "registers": "{\"eax\": 0, \"ebx\": 0, \"ecx\": 0, \"edx\": 0, \"eflags\": 0}"
   }
 },
 {
@@ -44,10 +44,12 @@
     "title": "INC",
     "description": "Use the INC instruction to increment eax by 1.",
     "hint": "",
-    "initial_registers_default": "[{\"eax\":5},{\"eax\":23},{\"eax\":42},{\"eax\":35767}]",
-    "expected_registers_default": "[{\"eax\":6},{\"eax\":24},{\"eax\":43},{\"eax\":35768}]",
     "code_prefix": "",
-    "code_postfix": ""
+    "code_postfix": "",
+    "initial_registers_default": "[]",
+    "expected_registers_default": "[]",
+    "hidden_code_prefix_default": "",
+    "stack_default": "[]"
   }
 },
 {
@@ -59,10 +61,12 @@
     "title": "ADD",
     "description": "Increment eax by 71.",
     "hint": "",
-    "initial_registers_default": "[{\"eax\":23}]",
-    "expected_registers_default": "[{\"eax\":94}]",
     "code_prefix": "",
-    "code_postfix": ""
+    "code_postfix": "",
+    "initial_registers_default": "[]",
+    "expected_registers_default": "[]",
+    "hidden_code_prefix_default": "",
+    "stack_default": "[]"
   }
 },
 {
@@ -74,10 +78,12 @@
     "title": "MOV",
     "description": "Move the value of eax into ebx.",
     "hint": "",
-    "initial_registers_default": "[{\"eax\":1234},{\"eax\":0},{\"eax\":999}]",
-    "expected_registers_default": "[{\"ebx\":1234},{\"ebx\":0},{\"ebx\":999}]",
     "code_prefix": "",
-    "code_postfix": ""
+    "code_postfix": "",
+    "initial_registers_default": "[]",
+    "expected_registers_default": "[]",
+    "hidden_code_prefix_default": "",
+    "stack_default": "[]"
   }
 },
 {
@@ -89,10 +95,12 @@
     "title": "DEC",
     "description": "Decrement eax two times.",
     "hint": "",
-    "initial_registers_default": "[{\"eax\":3},{\"eax\":1337},{\"eax\":563322},{\"eax\":35}]",
-    "expected_registers_default": "[{\"eax\":1},{\"eax\":1335},{\"eax\":563320},{\"eax\":33}]",
     "code_prefix": "",
-    "code_postfix": ""
+    "code_postfix": "",
+    "initial_registers_default": "[]",
+    "expected_registers_default": "[]",
+    "hidden_code_prefix_default": "",
+    "stack_default": "[]"
   }
 },
 {
@@ -104,10 +112,12 @@
     "title": "SUB",
     "description": "Substract 127 from eax.",
     "hint": "",
-    "initial_registers_default": "[{\"eax\":356},{\"eax\":5046},{\"eax\":5632},{\"eax\":53235}]",
-    "expected_registers_default": "[{\"eax\":229},{\"eax\":4919},{\"eax\":5505},{\"eax\":53108}]",
     "code_prefix": "",
-    "code_postfix": ""
+    "code_postfix": "",
+    "initial_registers_default": "[]",
+    "expected_registers_default": "[]",
+    "hidden_code_prefix_default": "",
+    "stack_default": "[]"
   }
 },
 {
@@ -119,10 +129,12 @@
     "title": "MUL",
     "description": "Multiply the value of eax by 5.",
     "hint": "The MUL instruction takes the value of a register and multiplies it with eax. The result is again stored in eax. (mul ebx: eax *= ebx)",
-    "initial_registers_default": "[{\"eax\":7,\"ebx\":0},{\"eax\":36,\"ebx\":0},{\"eax\":9,\"ebx\":0},{\"eax\":15,\"ebx\":0},{\"eax\":564,\"ebx\":0},{\"eax\":45,\"ebx\":0},{\"eax\":174,\"ebx\":0},{\"eax\":2,\"ebx\":0},{\"eax\":5423,\"ebx\":0},{\"eax\":743,\"ebx\":0}]",
-    "expected_registers_default": "[{\"eax\":35},{\"eax\":180},{\"eax\":45},{\"eax\":75},{\"eax\":2820},{\"eax\":225},{\"eax\":870},{\"eax\":10},{\"eax\":27115},{\"eax\":3715}]",
     "code_prefix": "",
-    "code_postfix": ""
+    "code_postfix": "",
+    "initial_registers_default": "[]",
+    "expected_registers_default": "[]",
+    "hidden_code_prefix_default": "",
+    "stack_default": "[]"
   }
 },
 {
@@ -134,10 +146,12 @@
     "title": "DIV",
     "description": "Divide value of eax by 7.",
     "hint": "As with MUL, DIV uses the eax register as the dividend and result storage destination. The operand is the divisor. (DIV ebx: eax /= ebx)",
-    "initial_registers_default": "[{\"eax\":7,\"ebx\":0},{\"eax\":343,\"ebx\":0},{\"eax\":4515,\"ebx\":0},{\"eax\":49,\"ebx\":0},{\"eax\":3801,\"ebx\":0}]",
-    "expected_registers_default": "[{\"eax\":1},{\"eax\":49},{\"eax\":645},{\"eax\":7},{\"eax\":543}]",
     "code_prefix": "",
-    "code_postfix": ""
+    "code_postfix": "",
+    "initial_registers_default": "[]",
+    "expected_registers_default": "[]",
+    "hidden_code_prefix_default": "",
+    "stack_default": "[]"
   }
 },
 {
@@ -149,10 +163,12 @@
     "title": "Odd Condition",
     "description": "Set eax to 0 if eax is odd. Leave it as is otherwise.",
     "hint": "",
-    "initial_registers_default": "[{\"eax\":43},{\"eax\":42},{\"eax\":7222},{\"eax\":80},{\"eax\":17},{\"eax\":9237}]",
-    "expected_registers_default": "[{\"eax\":0},{\"eax\":42},{\"eax\":7222},{\"eax\":80},{\"eax\":0},{\"eax\":0}]",
     "code_prefix": "",
-    "code_postfix": ""
+    "code_postfix": "",
+    "initial_registers_default": "[]",
+    "expected_registers_default": "[]",
+    "hidden_code_prefix_default": "",
+    "stack_default": "[]"
   }
 },
 {
@@ -164,10 +180,470 @@
     "title": "Pre- and Postfix",
     "description": "The prefix code is being executed right before and the postfix code right after your modifiable part. The initial state is prior to any execution and the expected state is after the postfix code has finished. The task is to reinstate the initial values of eax.",
     "hint": "",
-    "initial_registers_default": "[{\"eax\":43},{\"eax\":42},{\"eax\":7222},{\"eax\":80},{\"eax\":17},{\"eax\":9237}]",
-    "expected_registers_default": "[{\"eax\":43},{\"eax\":42},{\"eax\":7222},{\"eax\":80},{\"eax\":17},{\"eax\":9237}]",
     "code_prefix": "xor eax, 1337\r\nmov ecx, eax",
     "code_postfix": "mov ebx, eax\r\nmov eax, ecx\r\nxor eax, ebx"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 1,
+  "fields": {
+    "task": 1,
+    "initial_registers": "{\"eax\": 5}",
+    "expected_registers": "{\"eax\": 6}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 2,
+  "fields": {
+    "task": 1,
+    "initial_registers": "{\"eax\": 23}",
+    "expected_registers": "{\"eax\": 24}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 3,
+  "fields": {
+    "task": 1,
+    "initial_registers": "{\"eax\": 42}",
+    "expected_registers": "{\"eax\": 43}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 4,
+  "fields": {
+    "task": 1,
+    "initial_registers": "{\"eax\": 35767}",
+    "expected_registers": "{\"eax\": 35768}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 5,
+  "fields": {
+    "task": 2,
+    "initial_registers": "{\"eax\": 23}",
+    "expected_registers": "{\"eax\": 94}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 6,
+  "fields": {
+    "task": 3,
+    "initial_registers": "{\"eax\": 1234}",
+    "expected_registers": "{\"ebx\": 1234}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 7,
+  "fields": {
+    "task": 3,
+    "initial_registers": "{\"eax\": 999}",
+    "expected_registers": "{\"ebx\": 999}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 8,
+  "fields": {
+    "task": 4,
+    "initial_registers": "{\"eax\": 3}",
+    "expected_registers": "{\"eax\": 1}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 9,
+  "fields": {
+    "task": 4,
+    "initial_registers": "{\"eax\": 1337}",
+    "expected_registers": "{\"eax\": 1335}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 10,
+  "fields": {
+    "task": 4,
+    "initial_registers": "{\"eax\": 563322}",
+    "expected_registers": "{\"eax\": 563320}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 11,
+  "fields": {
+    "task": 4,
+    "initial_registers": "{\"eax\": 35}",
+    "expected_registers": "{\"eax\": 33}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 12,
+  "fields": {
+    "task": 5,
+    "initial_registers": "{\"eax\": 356}",
+    "expected_registers": "{\"eax\": 229}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 13,
+  "fields": {
+    "task": 5,
+    "initial_registers": "{\"eax\": 5046}",
+    "expected_registers": "{\"eax\": 4919}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 14,
+  "fields": {
+    "task": 5,
+    "initial_registers": "{\"eax\": 5632}",
+    "expected_registers": "{\"eax\": 5505}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 15,
+  "fields": {
+    "task": 5,
+    "initial_registers": "{\"eax\": 53235}",
+    "expected_registers": "{\"eax\": 53108}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 16,
+  "fields": {
+    "task": 6,
+    "initial_registers": "{\"eax\": 7, \"ebx\": 0}",
+    "expected_registers": "{\"eax\": 35}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 17,
+  "fields": {
+    "task": 6,
+    "initial_registers": "{\"eax\": 36, \"ebx\": 0}",
+    "expected_registers": "{\"eax\": 180}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 18,
+  "fields": {
+    "task": 6,
+    "initial_registers": "{\"eax\": 9, \"ebx\": 0}",
+    "expected_registers": "{\"eax\": 45}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 19,
+  "fields": {
+    "task": 6,
+    "initial_registers": "{\"eax\": 15, \"ebx\": 0}",
+    "expected_registers": "{\"eax\": 75}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 20,
+  "fields": {
+    "task": 6,
+    "initial_registers": "{\"eax\": 564, \"ebx\": 0}",
+    "expected_registers": "{\"eax\": 2820}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 21,
+  "fields": {
+    "task": 6,
+    "initial_registers": "{\"eax\": 45, \"ebx\": 0}",
+    "expected_registers": "{\"eax\": 225}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 22,
+  "fields": {
+    "task": 6,
+    "initial_registers": "{\"eax\": 174, \"ebx\": 0}",
+    "expected_registers": "{\"eax\": 870}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 23,
+  "fields": {
+    "task": 6,
+    "initial_registers": "{\"eax\": 2, \"ebx\": 0}",
+    "expected_registers": "{\"eax\": 10}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 24,
+  "fields": {
+    "task": 6,
+    "initial_registers": "{\"eax\": 5423, \"ebx\": 0}",
+    "expected_registers": "{\"eax\": 27115}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 25,
+  "fields": {
+    "task": 6,
+    "initial_registers": "{\"eax\": 743, \"ebx\": 0}",
+    "expected_registers": "{\"eax\": 3715}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 26,
+  "fields": {
+    "task": 7,
+    "initial_registers": "{\"eax\": 7, \"ebx\": 0}",
+    "expected_registers": "{\"eax\": 1}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 27,
+  "fields": {
+    "task": 7,
+    "initial_registers": "{\"eax\": 343, \"ebx\": 0}",
+    "expected_registers": "{\"eax\": 49}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 28,
+  "fields": {
+    "task": 7,
+    "initial_registers": "{\"eax\": 4515, \"ebx\": 0}",
+    "expected_registers": "{\"eax\": 645}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 29,
+  "fields": {
+    "task": 7,
+    "initial_registers": "{\"eax\": 49, \"ebx\": 0}",
+    "expected_registers": "{\"eax\": 7}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 30,
+  "fields": {
+    "task": 7,
+    "initial_registers": "{\"eax\": 3801, \"ebx\": 0}",
+    "expected_registers": "{\"eax\": 543}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 31,
+  "fields": {
+    "task": 8,
+    "initial_registers": "{\"eax\": 43}",
+    "expected_registers": "{\"eax\": 0}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 32,
+  "fields": {
+    "task": 8,
+    "initial_registers": "{\"eax\": 42}",
+    "expected_registers": "{\"eax\": 42}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 33,
+  "fields": {
+    "task": 8,
+    "initial_registers": "{\"eax\": 7222}",
+    "expected_registers": "{\"eax\": 7222}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 34,
+  "fields": {
+    "task": 8,
+    "initial_registers": "{\"eax\": 80}",
+    "expected_registers": "{\"eax\": 80}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 35,
+  "fields": {
+    "task": 8,
+    "initial_registers": "{\"eax\": 17}",
+    "expected_registers": "{\"eax\": 0}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 36,
+  "fields": {
+    "task": 8,
+    "initial_registers": "{\"eax\": 9237}",
+    "expected_registers": "{\"eax\": 0}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 37,
+  "fields": {
+    "task": 9,
+    "initial_registers": "{\"eax\": 43}",
+    "expected_registers": "{\"eax\": 43}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 38,
+  "fields": {
+    "task": 9,
+    "initial_registers": "{\"eax\": 7222}",
+    "expected_registers": "{\"eax\": 7222}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 39,
+  "fields": {
+    "task": 9,
+    "initial_registers": "{\"eax\": 42}",
+    "expected_registers": "{\"eax\": 42}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 40,
+  "fields": {
+    "task": 9,
+    "initial_registers": "{\"eax\": 80}",
+    "expected_registers": "{\"eax\": 80}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 41,
+  "fields": {
+    "task": 9,
+    "initial_registers": "{\"eax\": 17}",
+    "expected_registers": "{\"eax\": 17}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
+  }
+},
+{
+  "model": "assembler_execution.tasktestcase",
+  "pk": 42,
+  "fields": {
+    "task": 9,
+    "initial_registers": "{\"eax\": 9237}",
+    "expected_registers": "{\"eax\": 9237}",
+    "hidden_code_prefix": "",
+    "stack": "[]"
   }
 }
 ]
