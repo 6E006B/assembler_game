@@ -18,9 +18,7 @@ class TaskExecutor(object):
             hidden_code_prefix = test_case.get_hidden_code_prefix()
             execution_offset = 0
             if hidden_code_prefix:
-                execution_offset = len(self.at.bytify_assembly(
-                    self.at.assemble(hidden_code_prefix, addr=X86Emulator.CODE_BASE_ADDRESS)
-                ))
+                execution_offset = len(self.at.assemble(hidden_code_prefix, addr=X86Emulator.CODE_BASE_ADDRESS))
             complete_assembler_code = "\n".join([
                 hidden_code_prefix,
                 self.task.code_prefix,
@@ -30,7 +28,7 @@ class TaskExecutor(object):
             initial_registers = test_case.get_initial_registers()
             expected_registers = test_case.get_expected_registers()
             stack = test_case.get_stack()
-            machine_code = self.at.bytify_assembly(self.at.assemble(complete_assembler_code, addr=X86Emulator.CODE_BASE_ADDRESS))
+            machine_code = self.at.assemble(complete_assembler_code, addr=X86Emulator.CODE_BASE_ADDRESS)
             print("code: '{}'".format(self.at.stringify_assembly(self.at.assemble(complete_assembler_code, addr=X86Emulator.CODE_BASE_ADDRESS))))
             self.cpu = X86Emulator(machine_code, initial_registers, stack=stack, execution_offset=execution_offset)
             self.cpu.execute()

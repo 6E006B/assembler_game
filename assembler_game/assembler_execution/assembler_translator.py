@@ -9,23 +9,17 @@ class AssemblerTranslator(object):
         self.disassembler = Cs(CS_ARCH_X86, CS_MODE_32)
         self.assembler = Ks(KS_ARCH_X86, KS_MODE_32)
 
-    def assemble(self, code, addr=0):
-        return self.assembler.asm(code, addr)[0]
+    def assemble(self, code: str, addr: int = 0) -> bytes:
+        return bytes(self.assembler.asm(code, addr)[0])
 
-    def disassemble(self, bytes, addr=0):
+    def disassemble(self, bytes: bytes, addr: int = 0):
         return self.disassembler.disasm(bytes, addr)
 
-    def stringify_assembly(self, assembly):
+    def stringify_assembly(self, assembly: bytes):
         assembled_string = ""
         for instruction in assembly:
             assembled_string += "{:02x}".format(instruction)
         return assembled_string
-
-    def bytify_assembly(self, assembly):
-        byte_string = ''
-        for instruction in assembly:
-            byte_string += chr(instruction)
-        return byte_string
 
     def stringify_disassembly(self, disassembly):
         assembler_string = ""
